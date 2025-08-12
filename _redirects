@@ -1,0 +1,7 @@
+# Redirections ultimes pour résoudre tous les problèmes SSL
+/ /home-alt.html 200
+/login /login-alt.html 200
+/register /register-alt.html 200
+
+# SPA fallback pour les autres routes
+/* /index.html 200

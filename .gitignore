@@ -1,5 +1,4 @@
-# Exclude crypto-main directory from git
-crypto-main/
+# CryptoBoost - Fichiers à ignorer
 
 # Node modules
 node_modules/

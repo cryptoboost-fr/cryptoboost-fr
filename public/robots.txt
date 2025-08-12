@@ -1,0 +1,15 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://cryptoboost.world/sitemap.xml
+
+# Disallow admin and private areas
+Disallow: /admin/
+Disallow: /client/
+Disallow: /api/
+Disallow: /_headers
+Disallow: /_redirects
+
+# Crawl-delay
+Crawl-delay: 1
