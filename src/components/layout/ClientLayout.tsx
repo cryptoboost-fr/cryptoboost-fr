@@ -26,9 +26,9 @@ export const ClientLayout = () => {
   const { toast } = useToast();
 
   const navigation = [
-    { 
-      name: 'Dashboard', 
-      href: '/client/dashboard', 
+    {
+      name: 'Dashboard',
+      href: '/client',
       icon: Home,
       description: 'Vue d\'ensemble de vos investissements'
     },

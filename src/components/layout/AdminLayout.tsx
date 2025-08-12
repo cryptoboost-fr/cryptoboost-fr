@@ -25,9 +25,9 @@ export const AdminLayout = () => {
   const { toast } = useToast();
 
   const navigation = [
-    { 
-      name: 'Dashboard', 
-      href: '/admin/dashboard', 
+    {
+      name: 'Dashboard',
+      href: '/admin',
       icon: Home,
       description: 'Vue d\'ensemble de la plateforme'
     },
