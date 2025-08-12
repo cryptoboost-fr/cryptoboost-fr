@@ -125,7 +125,7 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
     
     const sizes = [width, width * 1.5, width * 2];
     return sizes
-      .map(size => `${optimizeImageUrl(src.replace(/w=\d+/, `w=${Math.round(size)}`)} ${size}w`)
+      .map(size => `${optimizeImageUrl(src.replace(/w=\d+/, `w=${Math.round(size)}`))} ${size}w`)
       .join(', ');
   };
 

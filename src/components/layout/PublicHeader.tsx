@@ -17,9 +17,9 @@ import { cn } from '@/lib/utils';
 const navigation = [
   { name: 'Accueil', href: '/' },
   { name: 'À propos', href: '/about' },
-  { name: 'Fonctionnalités', href: '/features' },
-  { name: 'Tarifs', href: '/pricing' },
+  { name: 'Plans', href: '/plans' },
   { name: 'Contact', href: '/contact' },
+  { name: 'FAQ', href: '/faq' },
 ];
 
 const features = [
@@ -111,7 +111,7 @@ export const PublicHeader = () => {
           <div className="hidden md:flex items-center space-x-4">
             {user ? (
               <div className="flex items-center space-x-4">
-                <Link to={user?.role === 'admin' ? '/admin/dashboard' : '/client/dashboard'}>
+                <Link to={user?.role === 'admin' ? '/admin' : '/client'}>
                   <Button variant="outline" size="sm">
                     Dashboard
                   </Button>
@@ -124,7 +124,7 @@ export const PublicHeader = () => {
               </div>
             ) : (
               <div className="flex items-center space-x-4">
-                <Link to="/login-alt.html">
+                <Link to="/login">
                   <Button variant="ghost" size="sm">
                     Connexion
                   </Button>
@@ -154,8 +154,10 @@ export const PublicHeader = () => {
             </motion.div>
           </button>
         </div>
+      </div>
 
-        {/* Mobile Navigation */}
+      {/* Mobile Navigation */}
+      <AnimatePresence>
         {isMenuOpen && (
           <>
             {/* Mobile overlay */}
@@ -211,9 +213,10 @@ export const PublicHeader = () => {
                       <span>{item.name}</span>
                     </Link>
                   ))}
+                </nav>
 
-              {/* Mobile Features */}
-              <div className="px-3 py-2">
+                {/* Mobile Features */}
+                <div className="px-3 py-2">
                 <h3 className="text-sm font-medium text-muted-foreground mb-2">Fonctionnalités</h3>
                 {features.map((feature) => (
                   <Link
@@ -232,7 +235,7 @@ export const PublicHeader = () => {
               <div className="pt-4 border-t border-border">
                 {user ? (
                   <div className="space-y-2">
-                    <Link to={user?.role === 'admin' ? '/admin/dashboard' : '/client/dashboard'} onClick={() => setIsMenuOpen(false)}>
+                    <Link to={user?.role === 'admin' ? '/admin' : '/client'} onClick={() => setIsMenuOpen(false)}>
                       <Button variant="outline" className="w-full">
                         Dashboard
                       </Button>
@@ -245,7 +248,7 @@ export const PublicHeader = () => {
                   </div>
                 ) : (
                   <div className="space-y-2">
-                    <Link to="/login-alt.html" onClick={() => setIsMenuOpen(false)}>
+                    <Link to="/login" onClick={() => setIsMenuOpen(false)}>
                       <Button variant="ghost" className="w-full">
                         Connexion
                       </Button>
@@ -258,10 +261,11 @@ export const PublicHeader = () => {
                   </div>
                 )}
               </div>
-            </div>
-          </motion.div>
+              </div>
+            </motion.div>
+        </>
         )}
-      </div>
+      </AnimatePresence>
     </header>
   );
 };

@@ -14,7 +14,7 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = React.memo(({
   children,
   requireAuth = false,
   requireAdmin = false,
-  redirectTo = '/login-alt.html'
+  redirectTo = '/login'
 }) => {
   const { user, loading } = useAuthStore();
   const location = useLocation();

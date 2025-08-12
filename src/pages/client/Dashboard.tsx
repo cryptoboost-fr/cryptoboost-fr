@@ -389,7 +389,6 @@ export const Dashboard: React.FC = () => {
               </Card>
             </motion.div>
           )}
-          </div>
         </motion.div>
       </div>
     </div>

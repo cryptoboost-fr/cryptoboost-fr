@@ -84,12 +84,29 @@ export const userApi = {
       .eq('id', userId)
       .select()
       .single();
-    
+
     if (error) {
       console.error('Error updating user:', error);
       return null;
     }
-    
+
+    return data;
+  },
+
+  // Update user role (admin only)
+  async updateUserRole(userId: string, role: 'client' | 'admin'): Promise<User | null> {
+    const { data, error } = await supabase
+      .from('users')
+      .update({ role, updated_at: new Date().toISOString() })
+      .eq('id', userId)
+      .select()
+      .single();
+
+    if (error) {
+      console.error('Error updating user role:', error);
+      return null;
+    }
+
     return data;
   },
 

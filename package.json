@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "node build-netlify.cjs",
+    "build:vite": "vite build",
+    "build:simple": "node build-simple.cjs",
     "build:netlify": "./scripts/build-netlify.sh",
     "build:prod": "NODE_ENV=production npm run build",
     "preview": "vite preview",
@@ -59,7 +61,7 @@
     "@types/react-dom": "^18.3.0",
     "@typescript-eslint/eslint-plugin": "^8.39.0",
     "@typescript-eslint/parser": "^8.39.0",
-    "@vitejs/plugin-react": "^4.3.1",
+    "@vitejs/plugin-react": "^4.7.0",
     "@vitest/ui": "^2.1.8",
     "autoprefixer": "^10.4.21",
     "babel-plugin-transform-remove-console": "^6.9.4",
@@ -76,9 +78,9 @@
     "rollup-plugin-visualizer": "^6.0.3",
     "tailwindcss": "^3.4.1",
     "terser": "^5.43.1",
-    "typescript": "^5.5.3",
+    "typescript": "^5.9.2",
     "typescript-eslint": "^8.3.0",
-    "vite": "^5.4.2",
+    "vite": "^5.4.19",
     "vite-bundle-analyzer": "^1.2.1",
     "vitest": "^2.1.8"
   }

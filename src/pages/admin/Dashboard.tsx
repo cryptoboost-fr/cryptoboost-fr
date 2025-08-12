@@ -257,7 +257,6 @@ export const AdminDashboard: React.FC = () => {
                   </div>
                 </CardContent>
               </Card>
-            </motion.div>
 
               <Card className="bg-orange-600/20 border-orange-500/30">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -303,9 +302,10 @@ export const AdminDashboard: React.FC = () => {
                   </p>
                 </CardContent>
               </Card>
-            </div>
+            </motion.div>
+          </div>
 
-            {/* Actions rapides */}
+          {/* Actions rapides */}
             <div className="mb-8">
               <h2 className="text-2xl font-bold text-white mb-4">Actions administrateur</h2>
               <div className="flex flex-wrap gap-4">
@@ -381,7 +381,6 @@ export const AdminDashboard: React.FC = () => {
                 </div>
               </div>
             )}
-          </div>
         </motion.div>
       </div>
     </div>

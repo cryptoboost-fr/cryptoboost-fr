@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Eye, EyeOff, Mail, Lock, ArrowRight } from 'lucide-react';
 import { useAuthStore } from '@/store/auth';
@@ -20,6 +20,10 @@ export const Login = () => {
   const { signIn } = useAuthStore();
   const { toast } = useToast();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // Get the intended destination from location state
+  const from = location.state?.from?.pathname || null;
 
   const validateForm = () => {
     const newErrors: {email?: string; password?: string} = {};
@@ -66,15 +70,35 @@ export const Login = () => {
         
         if (user) {
           toast('Connexion réussie !', 'success');
-          
-          // Redirection en fonction du rôle
-          if (user.role === 'admin') {
-            // Redirecting to admin dashboard
-            navigate('/admin/dashboard');
+
+          // Redirection intelligente avec gestion des cas limites
+          let redirectPath = '/client'; // Default fallback
+
+          if (from) {
+            // Si l'utilisateur tentait d'accéder à une page spécifique, vérifier les permissions
+            if (from.startsWith('/admin') && user.role === 'admin') {
+              redirectPath = from;
+            } else if (from.startsWith('/client') && (user.role === 'client' || user.role === 'admin')) {
+              redirectPath = from;
+            } else if (!from.startsWith('/admin') && !from.startsWith('/client')) {
+              // Page publique, rediriger vers la page demandée
+              redirectPath = from;
+            }
           } else {
-            // Redirecting to client dashboard
-            navigate('/client/dashboard');
+            // Redirection par défaut basée sur le rôle
+            if (user.role === 'admin') {
+              redirectPath = '/admin';
+            } else if (user.role === 'client') {
+              redirectPath = '/client';
+            } else {
+              // Rôle non défini ou invalide - redirection par défaut vers client
+              console.warn('Rôle utilisateur non défini ou invalide:', user.role);
+              toast('Connexion réussie ! Redirection vers l\'espace client.', 'success');
+              redirectPath = '/client';
+            }
           }
+
+          navigate(redirectPath, { replace: true });
         } else {
           toast('Erreur lors de la récupération du profil utilisateur', 'error');
         }

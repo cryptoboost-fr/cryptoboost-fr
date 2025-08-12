@@ -5,7 +5,7 @@ import { Mail, ArrowLeft, CheckCircle } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
-import { useToast } from '@/hooks/useToast';
+import { useToast } from '@/components/ui/toaster';
 import { supabase } from '@/lib/supabase';
 
 export const PasswordReset = () => {
