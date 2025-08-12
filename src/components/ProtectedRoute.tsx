@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import { useAuthStore } from '@/store/auth';
 import { useOptimizedMount, useMemoryOptimization } from '@/utils/navigationOptimization';
+import { useToast } from '@/components/ui/toaster';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
@@ -18,10 +19,11 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = React.memo(({
 }) => {
   const { user, loading } = useAuthStore();
   const location = useLocation();
+  const { toast } = useToast();
 
   // Performance optimizations
-  const isMounted = useOptimizedMount('ProtectedRoute');
-  const { addCleanup } = useMemoryOptimization('ProtectedRoute');
+  useOptimizedMount('ProtectedRoute');
+  useMemoryOptimization('ProtectedRoute');
 
   // Afficher un loader pendant le chargement
   if (loading) {
@@ -36,6 +38,15 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = React.memo(({
   if (!requireAuth) {
     return <>{children}</>;
   }
+
+  // Handle toast notifications before any early returns
+  useEffect(() => {
+    if (requireAuth && !user) {
+      toast('Veuillez vous connecter pour accéder à cette page', 'info');
+    } else if (requireAdmin && user?.role !== 'admin') {
+      toast('Accès administrateur requis. Redirection vers votre espace client.', 'warning');
+    }
+  }, [requireAuth, requireAdmin, user, toast]);
 
   // Rediriger vers login si authentification requise
   if (requireAuth && !user) {

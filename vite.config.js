@@ -1,6 +1,5 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import { resolve } from 'path'
 import { fileURLToPath, URL } from 'node:url'
 
 // https://vitejs.dev/config/
@@ -31,7 +30,6 @@ export default defineConfig({
   server: {
     port: 3000,
     host: true,
-    // Configuration pour le développement
     proxy: {
       '/api': {
         target: 'http://localhost:3001',
@@ -40,15 +38,12 @@ export default defineConfig({
       }
     }
   },
-  // Optimisations pour la production
   define: {
     __DEV__: process.env.NODE_ENV === 'development'
   },
-  // Optimisations CSS
   css: {
     postcss: './postcss.config.cjs'
   },
-  // Optimisations d'import
   optimizeDeps: {
     include: [
       'react',
@@ -60,7 +55,6 @@ export default defineConfig({
     ],
     exclude: ['@vite/client', '@vite/env']
   },
-  // Configuration pour Netlify
   preview: {
     port: 4173,
     host: true

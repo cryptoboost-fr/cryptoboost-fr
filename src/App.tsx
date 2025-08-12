@@ -10,6 +10,8 @@ import { initializeQueryOptimization } from './utils/queryOptimization'
 // Layouts (keep as direct imports for critical rendering path)
 import { PublicHeader } from './components/layout/PublicHeader'
 import { PublicFooter } from './components/layout/PublicFooter'
+import { ClientLayout } from './components/layout/ClientLayout'
+import { AdminLayout } from './components/layout/AdminLayout'
 
 // Performance-optimized loading component
 const PageLoader = () => (
@@ -106,7 +108,9 @@ function App() {
               path="/client"
               element={
                 <ProtectedRoute requireAuth={true}>
-                  <ClientDashboard />
+                  <ClientLayout>
+                    <ClientDashboard />
+                  </ClientLayout>
                 </ProtectedRoute>
               }
             />
@@ -114,7 +118,9 @@ function App() {
               path="/client/profile"
               element={
                 <ProtectedRoute requireAuth={true}>
-                  <ClientProfile />
+                  <ClientLayout>
+                    <ClientProfile />
+                  </ClientLayout>
                 </ProtectedRoute>
               }
             />
@@ -122,7 +128,9 @@ function App() {
               path="/client/plans"
               element={
                 <ProtectedRoute requireAuth={true}>
-                  <ClientInvestments />
+                  <ClientLayout>
+                    <ClientInvestments />
+                  </ClientLayout>
                 </ProtectedRoute>
               }
             />
@@ -130,7 +138,9 @@ function App() {
               path="/client/investments"
               element={
                 <ProtectedRoute requireAuth={true}>
-                  <ClientInvestments />
+                  <ClientLayout>
+                    <ClientInvestments />
+                  </ClientLayout>
                 </ProtectedRoute>
               }
             />
@@ -138,7 +148,9 @@ function App() {
               path="/client/history"
               element={
                 <ProtectedRoute requireAuth={true}>
-                  <ClientTransactions />
+                  <ClientLayout>
+                    <ClientTransactions />
+                  </ClientLayout>
                 </ProtectedRoute>
               }
             />
@@ -146,7 +158,9 @@ function App() {
               path="/client/transactions"
               element={
                 <ProtectedRoute requireAuth={true}>
-                  <ClientTransactions />
+                  <ClientLayout>
+                    <ClientTransactions />
+                  </ClientLayout>
                 </ProtectedRoute>
               }
             />
@@ -154,7 +168,9 @@ function App() {
               path="/client/wallet"
               element={
                 <ProtectedRoute requireAuth={true}>
-                  <ClientWallets />
+                  <ClientLayout>
+                    <ClientWallets />
+                  </ClientLayout>
                 </ProtectedRoute>
               }
             />
@@ -162,7 +178,9 @@ function App() {
               path="/client/wallets"
               element={
                 <ProtectedRoute requireAuth={true}>
-                  <ClientWallets />
+                  <ClientLayout>
+                    <ClientWallets />
+                  </ClientLayout>
                 </ProtectedRoute>
               }
             />
@@ -170,7 +188,9 @@ function App() {
               path="/client/notifications"
               element={
                 <ProtectedRoute requireAuth={true}>
-                  <ClientNotifications />
+                  <ClientLayout>
+                    <ClientNotifications />
+                  </ClientLayout>
                 </ProtectedRoute>
               }
             />
@@ -178,7 +198,9 @@ function App() {
               path="/client/exchange"
               element={
                 <ProtectedRoute requireAuth={true}>
-                  <ClientExchange />
+                  <ClientLayout>
+                    <ClientExchange />
+                  </ClientLayout>
                 </ProtectedRoute>
               }
             />
@@ -188,7 +210,9 @@ function App() {
               path="/admin"
               element={
                 <ProtectedRoute requireAuth={true} requireAdmin={true}>
-                  <AdminDashboard />
+                  <AdminLayout>
+                    <AdminDashboard />
+                  </AdminLayout>
                 </ProtectedRoute>
               }
             />
@@ -196,7 +220,9 @@ function App() {
               path="/admin/users"
               element={
                 <ProtectedRoute requireAuth={true} requireAdmin={true}>
-                  <Users />
+                  <AdminLayout>
+                    <Users />
+                  </AdminLayout>
                 </ProtectedRoute>
               }
             />
@@ -204,7 +230,9 @@ function App() {
               path="/admin/transactions"
               element={
                 <ProtectedRoute requireAuth={true} requireAdmin={true}>
-                  <Transactions />
+                  <AdminLayout>
+                    <Transactions />
+                  </AdminLayout>
                 </ProtectedRoute>
               }
             />
@@ -212,7 +240,9 @@ function App() {
               path="/admin/investments"
               element={
                 <ProtectedRoute requireAuth={true} requireAdmin={true}>
-                  <InvestmentPlans />
+                  <AdminLayout>
+                    <InvestmentPlans />
+                  </AdminLayout>
                 </ProtectedRoute>
               }
             />
@@ -220,23 +250,29 @@ function App() {
               path="/admin/plans"
               element={
                 <ProtectedRoute requireAuth={true} requireAdmin={true}>
-                  <InvestmentPlans />
+                  <AdminLayout>
+                    <InvestmentPlans />
+                  </AdminLayout>
                 </ProtectedRoute>
               }
             />
             <Route
-              path="/admin/logs"
+              path="/admin/system-logs"
               element={
                 <ProtectedRoute requireAuth={true} requireAdmin={true}>
-                  <SystemLogs />
+                  <AdminLayout>
+                    <SystemLogs />
+                  </AdminLayout>
                 </ProtectedRoute>
               }
             />
             <Route
-              path="/admin/wallets"
+              path="/admin/crypto-wallets"
               element={
                 <ProtectedRoute requireAuth={true} requireAdmin={true}>
-                  <CryptoWallets />
+                  <AdminLayout>
+                    <CryptoWallets />
+                  </AdminLayout>
                 </ProtectedRoute>
               }
             />
@@ -244,7 +280,9 @@ function App() {
               path="/admin/settings"
               element={
                 <ProtectedRoute requireAuth={true} requireAdmin={true}>
-                  <Settings />
+                  <AdminLayout>
+                    <Settings />
+                  </AdminLayout>
                 </ProtectedRoute>
               }
             />

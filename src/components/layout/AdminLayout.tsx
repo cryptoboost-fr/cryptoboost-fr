@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { 
@@ -49,15 +49,15 @@ export const AdminLayout = () => {
       icon: TrendingUp,
       description: 'Gérer les plans d\'investissement'
     },
-    { 
-      name: 'Wallets', 
-      href: '/admin/wallets', 
+    {
+      name: 'Wallets',
+      href: '/admin/crypto-wallets',
       icon: Wallet,
       description: 'Gérer les wallets crypto'
     },
-    { 
-      name: 'Logs', 
-      href: '/admin/logs', 
+    {
+      name: 'Logs',
+      href: '/admin/system-logs',
       icon: FileText,
       description: 'Consulter les logs système'
     },

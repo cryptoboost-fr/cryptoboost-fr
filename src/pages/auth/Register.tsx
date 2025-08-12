@@ -76,20 +76,19 @@ export const Register = () => {
     setIsLoading(true);
 
     try {
-      const success = await register({
+      const result = await register({
         email: formData.email,
         password: formData.password,
-        confirmPassword: formData.confirm_password,
-        firstName: formData.full_name.split(' ')[0] || '',
-        lastName: formData.full_name.split(' ').slice(1).join(' ') || ''
+        full_name: formData.full_name,
+        confirm_password: formData.confirm_password
       });
       
-      if (success) {
+      if (!result.error) {
         toast('Compte créé avec succès ! Vous êtes maintenant connecté.', 'success');
         navigate('/client');
       } else {
-        toast('Erreur lors de la création du compte', 'error');
-        setErrors({ email: 'Erreur lors de la création du compte' });
+        toast(result.error || 'Erreur lors de la création du compte', 'error');
+        setErrors({ email: result.error || 'Erreur lors de la création du compte' });
       }
     } catch (error) {
       console.error('❌ Erreur inattendue:', error);
