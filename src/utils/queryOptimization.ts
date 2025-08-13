@@ -293,15 +293,22 @@ export const createOptimizedSubscription = (
 };
 
 // Performance monitoring for queries
+let queryMonitoringIntervals: NodeJS.Timeout[] = [];
+
 export const monitorQueryPerformance = () => {
+  // Clear existing intervals to prevent duplicates
+  queryMonitoringIntervals.forEach(interval => clearInterval(interval));
+  queryMonitoringIntervals = [];
+
   // Cleanup cache periodically
-  setInterval(() => {
+  const cacheCleanupInterval = setInterval(() => {
     queryCache.cleanup();
   }, 60000); // Every minute
+  queryMonitoringIntervals.push(cacheCleanupInterval);
 
   // Monitor memory usage
   if (process.env.NODE_ENV === 'development') {
-    setInterval(() => {
+    const memoryMonitorInterval = setInterval(() => {
       if ('memory' in performance) {
         const memory = (performance as any).memory;
         if (memory.usedJSHeapSize > 50 * 1024 * 1024) { // 50MB
@@ -309,7 +316,14 @@ export const monitorQueryPerformance = () => {
         }
       }
     }, 30000); // Every 30 seconds
+    queryMonitoringIntervals.push(memoryMonitorInterval);
   }
+};
+
+// Cleanup function for query monitoring
+export const cleanupQueryMonitoring = () => {
+  queryMonitoringIntervals.forEach(interval => clearInterval(interval));
+  queryMonitoringIntervals = [];
 };
 
 // Initialize query optimization

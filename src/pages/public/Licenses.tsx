@@ -7,7 +7,7 @@ import {
 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/Card';
 
-export const Licenses = () => {
+const Licenses = () => {
   return (
     <div className="min-h-screen bg-background pt-20">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -69,3 +69,5 @@ export const Licenses = () => {
     </div>
   );
 };
+
+export default Licenses;

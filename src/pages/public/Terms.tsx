@@ -9,7 +9,7 @@ import {
 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/Card';
 
-export const Terms = () => {
+const Terms = () => {
   const sections = [
     {
       title: '1. Acceptation des Conditions',
@@ -175,3 +175,5 @@ export const Terms = () => {
     </div>
   );
 };
+
+export default Terms;

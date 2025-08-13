@@ -5,8 +5,9 @@ import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Mail, MapPin, Send, CheckCircle } from 'lucide-react';
 import { useToast } from '@/components/ui/toaster';
+import { sanitizeTextInput, validateEmail } from '@/utils/validation';
 
-export const Contact = () => {
+const Contact = () => {
   const { toast } = useToast();
   const [formData, setFormData] = useState({
     name: '',
@@ -18,9 +19,13 @@ export const Contact = () => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
+
+    // Sanitize input to prevent XSS attacks
+    const sanitizedValue = name === 'email' ? value.trim() : sanitizeTextInput(value, 1000);
+
     setFormData(prev => ({
       ...prev,
-      [name]: value
+      [name]: sanitizedValue
     }));
   };
 
@@ -190,4 +195,6 @@ export const Contact = () => {
       </div>
     </div>
   );
-}; 
+};
+
+export default Contact;

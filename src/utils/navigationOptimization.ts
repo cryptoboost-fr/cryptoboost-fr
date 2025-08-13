@@ -280,15 +280,25 @@ export const usePrefetchCriticalData = () => {
 };
 
 // Initialize navigation optimizations
+let navigationIntervals: NodeJS.Timeout[] = [];
+let navigationTimeouts: NodeJS.Timeout[] = [];
+
 export const initializeNavigationOptimizations = () => {
+  // Clear existing intervals and timeouts to prevent duplicates
+  navigationIntervals.forEach(interval => clearInterval(interval));
+  navigationTimeouts.forEach(timeout => clearTimeout(timeout));
+  navigationIntervals = [];
+  navigationTimeouts = [];
+
   // Preload critical routes on app start
-  setTimeout(() => {
-    routePreloader.preloadRoute('/client/dashboard');
-    routePreloader.preloadRoute('/admin/dashboard');
+  const preloadTimeout = setTimeout(() => {
+    routePreloader.preloadRoute('/client');
+    routePreloader.preloadRoute('/admin');
   }, 2000);
+  navigationTimeouts.push(preloadTimeout);
 
   // Set up memory cleanup
-  setInterval(() => {
+  const memoryCleanupInterval = setInterval(() => {
     if ('memory' in performance) {
       const memory = (performance as any).memory;
       if (memory.usedJSHeapSize > 100 * 1024 * 1024) { // 100MB
@@ -296,4 +306,13 @@ export const initializeNavigationOptimizations = () => {
       }
     }
   }, 300000); // Every 5 minutes
+  navigationIntervals.push(memoryCleanupInterval);
+};
+
+// Cleanup function for navigation optimizations
+export const cleanupNavigationOptimizations = () => {
+  navigationIntervals.forEach(interval => clearInterval(interval));
+  navigationTimeouts.forEach(timeout => clearTimeout(timeout));
+  navigationIntervals = [];
+  navigationTimeouts = [];
 };

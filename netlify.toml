@@ -86,15 +86,17 @@
     Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.supabase.co; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://*.supabase.co https://api.coinapi.io; frame-ancestors 'none';"
 
 # Variables d'environnement pour Netlify
+# IMPORTANT: Configure these in Netlify dashboard under Site settings > Environment variables
+# DO NOT commit actual API keys to version control
 [context.production.environment]
   NODE_ENV = "production"
-  VITE_SUPABASE_URL = "https://ropzeweidvjkfeyyuiim.supabase.co"
-  VITE_SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJvcHpld2VpZHZqa2ZleXl1aWltIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ1NzE5OTEsImV4cCI6MjA3MDE0Nzk5MX0.5oA4zhbQyv0zZLqYLIOb74yl2xh_1-4v_IAa8SKcOYg"
+  # VITE_SUPABASE_URL = "configured_in_netlify_dashboard"
+  # VITE_SUPABASE_ANON_KEY = "configured_in_netlify_dashboard"
 
 [context.deploy-preview.environment]
   NODE_ENV = "preview"
-  VITE_SUPABASE_URL = "https://ropzeweidvjkfeyyuiim.supabase.co"
-  VITE_SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJvcHpld2VpZHZqa2ZleXl1aWltIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ1NzE5OTEsImV4cCI6MjA3MDE0Nzk5MX0.5oA4zhbQyv0zZLqYLIOb74yl2xh_1-4v_IAa8SKcOYg"
+  # VITE_SUPABASE_URL = "configured_in_netlify_dashboard"
+  # VITE_SUPABASE_ANON_KEY = "configured_in_netlify_dashboard"
 
 # Optimisations de build
 [build.processing]

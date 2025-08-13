@@ -18,7 +18,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 
-export const Help = () => {
+const Help = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
 
@@ -272,3 +272,5 @@ export const Help = () => {
     </div>
   );
 };
+
+export default Help;

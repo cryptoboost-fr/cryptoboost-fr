@@ -7,6 +7,7 @@ import { useToast } from '@/components/ui/toaster';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
+import { validateEmail } from '@/utils/validation';
 
 export const Login = () => {
   const [formData, setFormData] = useState({
@@ -30,14 +31,14 @@ export const Login = () => {
     
     if (!formData.email) {
       newErrors.email = 'L\'email est obligatoire';
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+    } else if (!validateEmail(formData.email)) {
       newErrors.email = 'Format d\'email invalide';
     }
     
     if (!formData.password) {
       newErrors.password = 'Le mot de passe est obligatoire';
-    } else if (formData.password.length < 6) {
-      newErrors.password = 'Le mot de passe doit contenir au moins 6 caractères';
+    } else if (formData.password.length < 8) {
+      newErrors.password = 'Le mot de passe doit contenir au moins 8 caractères';
     }
     
     setErrors(newErrors);

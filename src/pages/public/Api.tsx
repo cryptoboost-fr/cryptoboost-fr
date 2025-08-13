@@ -14,7 +14,7 @@ import {
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 
-export const Api = () => {
+const Api = () => {
   const [copied, setCopied] = React.useState<string | null>(null);
 
   const copyToClipboard = (text: string, key: string) => {
@@ -285,3 +285,5 @@ export const Api = () => {
     </div>
   );
 };
+
+export default Api;

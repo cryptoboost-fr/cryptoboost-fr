@@ -14,7 +14,7 @@ import {
 } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
 
-export const Status = () => {
+const Status = () => {
   const [currentTime, setCurrentTime] = useState(new Date());
 
   useEffect(() => {
@@ -315,3 +315,5 @@ export const Status = () => {
     </div>
   );
 };
+
+export default Status;

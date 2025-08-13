@@ -1,7 +1,7 @@
 import { } from './supabase';
 
 const COINAPI_BASE_URL = 'https://rest.coinapi.io/v1';
-const COINAPI_KEY = import.meta.env.VITE_COINAPI_KEY || '0ff4f88a-0673-403e-8773-8eeac3e46d66';
+const COINAPI_KEY = import.meta.env.VITE_COINAPI_KEY;
 
 export interface CoinApiRate {
   asset_id_base: string;
@@ -21,6 +21,10 @@ const cache: Record<string, { data: any; ts: number }> = {};
 const TTL_MS = 60 * 1000; // 60s cache
 
 async function fetchJson(path: string): Promise<any> {
+  if (!COINAPI_KEY) {
+    throw new Error('CoinAPI key not configured. Please set VITE_COINAPI_KEY environment variable.');
+  }
+
   const url = `${COINAPI_BASE_URL}${path}`;
   const cacheKey = url;
   const now = Date.now();

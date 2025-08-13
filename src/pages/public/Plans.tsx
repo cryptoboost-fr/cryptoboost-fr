@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/Button';
 import { CheckCircle, Star } from 'lucide-react';
 
-export const Plans = () => {
+const Plans = () => {
   const plans = [
     {
       name: 'Starter',
@@ -100,4 +100,6 @@ export const Plans = () => {
       </div>
     </div>
   );
-}; 
+};
+
+export default Plans; 

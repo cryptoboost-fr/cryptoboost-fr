@@ -2,10 +2,9 @@ import React, { useEffect, Suspense } from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { ProtectedRoute } from './components/ProtectedRoute'
 import { ToastProvider } from './components/ui/toaster'
-import { initializeAuth } from './store/auth'
-import { initializeNavigationOptimizations } from './utils/navigationOptimization'
-import { initializeCaching } from './utils/caching'
-import { initializeQueryOptimization } from './utils/queryOptimization'
+import { initializeNavigationOptimizations, cleanupNavigationOptimizations } from './utils/navigationOptimization'
+import { initializeCaching, cleanupCaching } from './utils/caching'
+import { initializeQueryOptimization, cleanupQueryMonitoring } from './utils/queryOptimization'
 
 // Layouts (keep as direct imports for critical rendering path)
 import { PublicHeader } from './components/layout/PublicHeader'
@@ -65,15 +64,20 @@ const CryptoWallets = React.lazy(() => import('./pages/admin/CryptoWallets'));
 const Settings = React.lazy(() => import('./pages/admin/Settings'));
 
 function App() {
-  // Initialize authentication and performance optimizations on app start
+  // Initialize performance optimizations on app start
+  // Note: Auth is already initialized in main.tsx to avoid duplicate listeners
   useEffect(() => {
-    // Initialize core systems
-    initializeAuth();
-
     // Initialize performance optimizations
     initializeNavigationOptimizations();
     initializeCaching();
     initializeQueryOptimization();
+
+    // Cleanup function to prevent memory leaks
+    return () => {
+      cleanupNavigationOptimizations();
+      cleanupCaching();
+      cleanupQueryMonitoring();
+    };
   }, []);
 
   return (

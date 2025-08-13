@@ -10,7 +10,7 @@ import {
 import { Card, CardContent } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 
-export const Careers = () => {
+const Careers = () => {
   const jobs = [
     {
       title: 'Développeur Full-Stack Senior',
@@ -98,3 +98,5 @@ export const Careers = () => {
     </div>
   );
 };
+
+export default Careers;

@@ -368,26 +368,40 @@ export const swCache = {
 };
 
 // Initialize caching system
+let cachingIntervals: NodeJS.Timeout[] = [];
+
 export const initializeCaching = () => {
+  // Clear existing intervals to prevent duplicates
+  cachingIntervals.forEach(interval => clearInterval(interval));
+  cachingIntervals = [];
+
   // Cleanup expired entries on startup
   localCache.cleanup();
   sessionCache.cleanup();
   swCache.clearExpired();
 
   // Set up periodic cleanup
-  setInterval(() => {
+  const cleanupInterval = setInterval(() => {
     localCache.cleanup();
     sessionCache.cleanup();
     swCache.clearExpired();
   }, 60000); // Every minute
+  cachingIntervals.push(cleanupInterval);
 
   // Monitor storage usage
   if (process.env.NODE_ENV === 'development') {
-    setInterval(() => {
+    const monitorInterval = setInterval(() => {
       const usage = localCache.getUsage();
       if (usage.used > 1024 * 1024) { // 1MB
         console.log(`Cache usage: ${(usage.used / 1024 / 1024).toFixed(2)}MB`);
       }
     }, 30000); // Every 30 seconds
+    cachingIntervals.push(monitorInterval);
   }
+};
+
+// Cleanup function for caching system
+export const cleanupCaching = () => {
+  cachingIntervals.forEach(interval => clearInterval(interval));
+  cachingIntervals = [];
 };

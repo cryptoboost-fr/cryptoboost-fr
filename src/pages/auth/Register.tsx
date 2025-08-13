@@ -7,6 +7,7 @@ import { useToast } from '@/components/ui/toaster';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
+import { sanitizeTextInput, validateEmail, validatePassword } from '@/utils/validation';
 
 export const Register = () => {
   const [formData, setFormData] = useState({
@@ -42,17 +43,18 @@ export const Register = () => {
     // Validation email
     if (!formData.email) {
       newErrors.email = 'L\'email est obligatoire';
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+    } else if (!validateEmail(formData.email)) {
       newErrors.email = 'Format d\'email invalide';
     }
-    
+
     // Validation mot de passe
     if (!formData.password) {
       newErrors.password = 'Le mot de passe est obligatoire';
-    } else if (formData.password.length < 8) {
-      newErrors.password = 'Le mot de passe doit contenir au moins 8 caractères';
-    } else if (!/(?=.*[a-z])(?=.*[A-Z])/.test(formData.password)) {
-      newErrors.password = 'Le mot de passe doit contenir au moins une majuscule et une minuscule';
+    } else {
+      const passwordValidation = validatePassword(formData.password);
+      if (!passwordValidation.isValid) {
+        newErrors.password = passwordValidation.errors[0] || 'Mot de passe invalide';
+      }
     }
     
     // Validation confirmation mot de passe
@@ -101,11 +103,17 @@ export const Register = () => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+
+    // Sanitize input to prevent XSS attacks
+    const sanitizedValue = name === 'full_name' ? sanitizeTextInput(value, 100) :
+                          name === 'email' ? value.trim() :
+                          value; // Don't sanitize passwords as they may contain special chars
+
     setFormData({
       ...formData,
-      [name]: value,
+      [name]: sanitizedValue,
     });
-    
+
     // Effacer l'erreur quand l'utilisateur tape
     if (errors[name as keyof typeof errors]) {
       setErrors({

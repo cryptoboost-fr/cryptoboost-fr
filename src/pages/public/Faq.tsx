@@ -12,7 +12,7 @@ import { Card, CardContent } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 
-export const Faq = () => {
+const Faq = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
 
@@ -293,3 +293,5 @@ export const Faq = () => {
     </div>
   );
 };
+
+export default Faq;

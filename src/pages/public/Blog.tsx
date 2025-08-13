@@ -9,7 +9,7 @@ import {
 import { Card, CardContent } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 
-export const Blog = () => {
+const Blog = () => {
   const articles = [
     {
       title: 'L\'avenir du trading automatisé avec l\'IA',
@@ -103,3 +103,5 @@ export const Blog = () => {
     </div>
   );
 };
+
+export default Blog;

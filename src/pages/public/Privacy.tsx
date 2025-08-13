@@ -8,7 +8,7 @@ import {
 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/Card';
 
-export const Privacy = () => {
+const Privacy = () => {
   const sections = [
     {
       title: 'Collecte des Données',
@@ -77,3 +77,5 @@ export const Privacy = () => {
     </div>
   );
 };
+
+export default Privacy;

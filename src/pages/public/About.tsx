@@ -16,7 +16,7 @@ import {
 } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
 
-export const About = () => {
+const About = () => {
   const features = [
     {
       icon: Shield,
@@ -302,4 +302,6 @@ export const About = () => {
       </section>
     </div>
   );
-}; 
+};
+
+export default About;
